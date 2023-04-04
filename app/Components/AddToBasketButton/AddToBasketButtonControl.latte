@@ -1,0 +1,15 @@
+{templateType App\Components\AddToBasketButton\AddToBasketButtonTemplate}
+
+<div class="addToBasket" n:snippet>
+    {if ! hasItem()}
+        <a n:href="add!" class="addToBasket-button ajax" data-naja-history="replace">
+            Add to Basket
+        </a>
+    {else}
+        <form n:name="form" class="ajax" data-naja-history="replace">
+            <button n:name="subtract" />
+            {$item->getQuantity()}
+            <button n:name="add" />
+        </form>
+    {/if}
+</div>

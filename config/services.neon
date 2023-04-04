@@ -8,3 +8,15 @@ search:
 
 services:
 	- App\Router\RouterFactory::createRouter
+	- App\Components\BasketWidget\BasketWidgetControlFactory
+	- App\DTO\Basket
+
+
+	Conversion: App\Latte\Filter\Conversion
+	Uuid: App\Latte\Filter\Uuid
+	nette.latteFactory:
+		setup:
+			- addFilter('convert', [@Conversion, 'convert'])
+			- addFunction('uuid', [@Uuid, 'uuid'])
+
+	cache.storage: Nette\Caching\Storages\SQLiteStorage('%tempDir%/cache.db')

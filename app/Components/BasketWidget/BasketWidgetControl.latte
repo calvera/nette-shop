@@ -1,0 +1,15 @@
+{templateType App\Components\BasketWidget\BasketWidgetTemplate}
+
+<li class="nav-item dropdown basketWidget" data-naja-snippet-cache="off">
+    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+       aria-expanded="false">
+        Kosik <span n:snippet class="badge bg-secondary">{$itemsCount} / CZK {$amount}</span>
+    </a>
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="{plink Basket:}">Zobrazit</a></li>
+        <li>
+            <hr class="dropdown-divider">
+        </li>
+        <li><a class="dropdown-item ajax" n:href="clean!" >Vycistit</a></li>
+    </ul>
+</li>

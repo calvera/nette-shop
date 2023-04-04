@@ -1,0 +1,26 @@
+{block content}
+
+<div id="content">
+    <table class="table table-striped table-hover">
+        <thead class="table-light">
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col" colspan="2">Price</th>
+            <th>&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody class="table-group-divider" n:snippet="productList">
+        {foreach $products as $product}
+            {var $id = uuid($product->id)}
+            <tr>
+                <td><a n:href="ProductDetail: $id">{$product->name}</a></td>
+                <td>{$product->description}</td>
+                <td class="text-end">CZK {$product->price|number:2}</td>
+                <td class="text-end">EUR {$product->price|convert('EUR')|number:2}</td>
+                <td>{control addToBasket-{$id}}</td>
+            </tr>
+        {/foreach}
+        </tbody>
+    </table>
+{/block}

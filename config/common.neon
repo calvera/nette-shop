@@ -1,5 +1,7 @@
 parameters:
 
+includes:
+	- webpack.neon
 
 application:
 	errorPresenter: Error
@@ -9,6 +11,8 @@ application:
 
 session:
 	expiration: 14 days
+	autoStart: always
+	debugger: true
 
 
 di:

@@ -6,15 +6,26 @@ namespace App\Presenters;
 
 use App\Components\BasketWidget\BasketWidgetControl;
 use App\Components\BasketWidget\BasketWidgetControlFactory;
-use Nette;
+use App\DTO\Basket;
+use Nette\Application\UI\Presenter;
+use Nette\DI\Attributes\Inject;
 
-class AppPresenter extends Nette\Application\UI\Presenter
+class BasePresenter extends Presenter
 {
-    #[Nette\DI\Attributes\Inject]
+    #[Inject]
     public BasketWidgetControlFactory $basketWidgetComponentFactory;
+
+    #[Inject]
+    public Basket $basket;
 
     protected function createComponentBasketWidget(): BasketWidgetControl
     {
         return $this->basketWidgetComponentFactory->create();
+    }
+
+    public function beforeRender(): void
+    {
+        parent::beforeRender();
+        $this->template->basket = $this->basket;
     }
 }

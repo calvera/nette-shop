@@ -9,6 +9,7 @@
     <div>{$product->price|convert('EUR')|number:2}EUR</div>
 
     <div n:snippet="basketRelated">
-        {control addToBasket}
+        {var $id = uuid($product->id)}
+        {control addToBasket-{$id}}
     </div>
 {/block}

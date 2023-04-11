@@ -1,7 +1,7 @@
 language: php
 
 php:
-  - 8.2
+  - 8.0
 
 env:
   - TESTER_PHP_BIN="php"

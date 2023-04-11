@@ -8,7 +8,6 @@ search:
 
 services:
 	- App\Router\RouterFactory::createRouter
-	- App\Components\BasketWidget\BasketWidgetControlFactory
 	- App\DTO\Basket
 
 

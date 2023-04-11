@@ -29,7 +29,17 @@ final class BasketItem
 
     public function addQuantity(int $quantity): void
     {
-        $this->quantity+= $quantity;
+        $this->quantity += $quantity;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getPrice(): float
+    {
+        return $this->price;
     }
 
     public function getProductId(): string
@@ -40,16 +50,6 @@ final class BasketItem
     public function getQuantity(): int
     {
         return $this->quantity;
-    }
-
-    public function getPrice(): float
-    {
-        return $this->price;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
     }
 
     public function setQuantity(int $quantity): void
@@ -63,6 +63,6 @@ final class BasketItem
             throw new \UnexpectedValueException('Quantity is greater than current quantity');
         }
 
-        $this->quantity-= $quantity;
+        $this->quantity -= $quantity;
     }
 }

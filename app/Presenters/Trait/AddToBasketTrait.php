@@ -5,15 +5,14 @@ declare(strict_types=1);
 namespace App\Presenters\Trait;
 
 use App\Components\AddToBasketButton\AddToBasketButtonControlFactory;
+use App\Repository\ProductRepository;
 use Nette\Application\UI\Multiplier;
-use Nette\Database\Explorer;
 use Nette\DI\Attributes\Inject;
-use Symfony\Component\Uid\Uuid;
 
 trait AddToBasketTrait
 {
     #[Inject]
-    public Explorer $database;
+    public ProductRepository $productRepository;
 
     #[Inject]
     public AddToBasketButtonControlFactory $addToBasketButtonControlFactory;
@@ -22,8 +21,7 @@ trait AddToBasketTrait
     {
         return new Multiplier(
             function (string $productId) {
-                $id = Uuid::fromBase32($productId);
-                $product = $this->database->table('product')->get($id);
+                $product = $this->productRepository->get($productId);
                 $component = $this->addToBasketButtonControlFactory->create($product);
                 $component->onChange[] = function () {
                     $this->payload->postGet = true;

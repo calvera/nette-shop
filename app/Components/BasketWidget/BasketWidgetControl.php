@@ -16,15 +16,6 @@ final class BasketWidgetControl extends Control
     {
     }
 
-
-    public function render(): void
-    {
-        $this->template->setFile(__DIR__.'/BasketWidgetControl.latte');
-        $this->template->itemsCount = count($this->basket->getItems());
-        $this->template->amount = $this->basket->getTotalPrice();
-        $this->template->render();
-    }
-
     public function handleClean(): void
     {
         $this->basket->clear();
@@ -32,5 +23,13 @@ final class BasketWidgetControl extends Control
         $this->presenter->redrawControl('basketRelated');
         $this->presenter->payload->postGet = true;
         $this->presenter->payload->url = $this->link('this');
+    }
+
+    public function render(): void
+    {
+        $this->template->setFile(__DIR__.'/BasketWidgetControl.latte');
+        $this->template->itemsCount = count($this->basket->getItems());
+        $this->template->amount = $this->basket->getTotalPrice();
+        $this->template->render();
     }
 }

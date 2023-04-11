@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Latte\Filter;
 
-use Nette;
 use Latte;
+use Nette;
 
 class Conversion
 {
@@ -25,7 +25,7 @@ class Conversion
     private function getConversionRate(string $currency): float
     {
         return $this->cache->load(
-            'conversion-rate-' . $currency,
+            'conversion-rate-'.$currency,
             function (&$dependencies) {
                 $dependencies[Nette\Caching\Cache::Expire] = '1 hour';
 

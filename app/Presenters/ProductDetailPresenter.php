@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Presenters;
 
-use Symfony\Component\Uid\Uuid;
-
 
 final class ProductDetailPresenter extends BasePresenter
 {
@@ -14,9 +12,7 @@ final class ProductDetailPresenter extends BasePresenter
     public function renderDefault(string $id): void
     {
         try {
-            $id = Uuid::fromBase32($id);
-
-            $this->template->product = $this->database->table('product')->get($id);
+            $this->template->product = $this->productRepository->get($id);
         } catch (\Throwable) {
             $this->error();
         }

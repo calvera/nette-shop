@@ -18,24 +18,6 @@ class Basket
         $this->session = $session->getSection(self::class);
     }
 
-    /**
-     * @return BasketItem[]
-     */
-    public function getItems(): array
-    {
-        $items = $this->session->get('items');
-        if (!$items) {
-            $this->session->set('items', []);
-        }
-
-        return $this->session->get('items');;
-    }
-
-    public function getItem(ActiveRow $product): ?BasketItem
-    {
-        return $this->getItems()[$product->id] ?? null;
-    }
-
     public function add(ActiveRow $product, int $quantity = 1): void
     {
         $item = $this->getItem($product);
@@ -49,6 +31,44 @@ class Basket
         } else {
             $item->addQuantity($quantity);
         }
+    }
+
+    public function getItem(ActiveRow $product): ?BasketItem
+    {
+        return $this->getItems()[$product->id] ?? null;
+    }
+
+    /**
+     * @return BasketItem[]
+     */
+    public function getItems(): array
+    {
+        $items = $this->session->get('items');
+        if (!$items) {
+            $this->session->set('items', []);
+        }
+
+        return $this->session->get('items');
+    }
+
+    public function clear(): void
+    {
+        $this->session->set('items', []);
+    }
+
+    public function getTotalPrice(): float
+    {
+        $totalPrice = 0;
+        foreach ($this->getItems() as $item) {
+            $totalPrice += $item->getPrice() * $item->getQuantity();
+        }
+
+        return $totalPrice;
+    }
+
+    public function isEmpty(): bool
+    {
+        return count($this->getItems()) === 0;
     }
 
     public function subtract(ActiveRow $product, int $quantity = 1): void
@@ -70,26 +90,5 @@ class Basket
         unset($newItems[$product->id]);
 
         $this->session->set('items', $newItems);
-    }
-
-
-    public function getTotalPrice(): float
-    {
-        $totalPrice = 0;
-        foreach ($this->getItems() as $item) {
-            $totalPrice += $item->getPrice() * $item->getQuantity();
-        }
-
-        return $totalPrice;
-    }
-
-    public function clear(): void
-    {
-        $this->session->set('items', []);
-    }
-
-    public function isEmpty(): bool
-    {
-        return count($this->getItems()) === 0;
     }
 }

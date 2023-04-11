@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Presenters;
 
 
-use App\Repository\ProductRepository;
 use Nette\Utils\Paginator;
 
 final class ProductListPresenter extends BasePresenter
@@ -13,12 +12,6 @@ final class ProductListPresenter extends BasePresenter
     use Trait\AddToBasketTrait;
 
     private const ITEMS_PER_PAGE = 2;
-
-    public function __construct(
-        private ProductRepository $productRepository,
-    ) {
-        parent::__construct();
-    }
 
 
     public function renderDefault(int $page = 1): void

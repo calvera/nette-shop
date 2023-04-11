@@ -6,5 +6,5 @@ namespace App\Components\BasketWidget;
 
 interface BasketWidgetControlFactory
 {
-	public function create(): BasketWidgetControl;
+    public function create(): BasketWidgetControl;
 }

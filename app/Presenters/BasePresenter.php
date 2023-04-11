@@ -18,14 +18,14 @@ class BasePresenter extends Presenter
     #[Inject]
     public Basket $basket;
 
-    protected function createComponentBasketWidget(): BasketWidgetControl
-    {
-        return $this->basketWidgetComponentFactory->create();
-    }
-
     public function beforeRender(): void
     {
         parent::beforeRender();
         $this->template->basket = $this->basket;
+    }
+
+    protected function createComponentBasketWidget(): BasketWidgetControl
+    {
+        return $this->basketWidgetComponentFactory->create();
     }
 }

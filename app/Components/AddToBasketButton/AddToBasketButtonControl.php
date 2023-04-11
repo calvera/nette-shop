@@ -25,6 +25,18 @@ final class AddToBasketButtonControl extends Control
     ) {
     }
 
+    public function handleAdd(): void
+    {
+        $this->redrawControl();
+        $this->addItem();
+        $this->onChange();
+    }
+
+    private function addItem(): void
+    {
+        $this->basket->add($this->product);
+    }
+
     public function render(): void
     {
         $this->template->setFile(__DIR__.'/AddToBasketButtonControl.latte');
@@ -32,11 +44,9 @@ final class AddToBasketButtonControl extends Control
         $this->template->render();
     }
 
-    public function handleAdd(): void
+    private function getItem(): ?BasketItem
     {
-        $this->redrawControl();
-        $this->addItem();
-        $this->onChange();
+        return $this->basket->getItem($this->product);
     }
 
     protected function createComponentForm(): Form
@@ -58,16 +68,6 @@ final class AddToBasketButtonControl extends Control
         };
 
         return $form;
-    }
-
-    private function getItem(): ?BasketItem
-    {
-        return $this->basket->getItem($this->product);
-    }
-
-    private function addItem(): void
-    {
-        $this->basket->add($this->product);
     }
 
     private function removeItem(): void

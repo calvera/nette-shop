@@ -21,26 +21,27 @@ class OrderFormFacade
     {
         try {
             $this->database->transaction(function (Explorer $db) use ($data) {
-                $order = $db->table('order')->insert([
-                                                'id' => Uuid::v4(),
-                                                'name' => $data->name,
-                                                'email' => $data->email,
-                                                'phone_number' => $data->phoneNumber,
-                                            ]);
-                $line = 0;
+                $order = $db->table('order')->insert(
+                    [
+                        'id' => Uuid::v4(),
+                        'name' => $data->name,
+                        'email' => $data->email,
+                        'phone_number' => $data->phoneNumber,
+                    ]
+                );
+                $items = [];
                 foreach ($this->basket->getItems() as $item) {
-                    $db->table('order_item')->insert([
+                    $items[] = [
                         'order_id' => $order->id,
-                        'line' => $line,
+                        'line' => count($items),
                         'product_id' => $item->getProductId(),
                         'quantity' => $item->getQuantity(),
-                    ]);
-                    $line++;
+                    ];
                 }
+                $db->table('order_item')->insert($items);
             });
 
             $this->basket->clear();
-
         } catch (\Exception $e) {
             $form->addError('Nastala chyba při ukládání objednávky.');
         }

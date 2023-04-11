@@ -1,0 +1,28 @@
+language: php
+
+php:
+  - 8.2
+
+env:
+  - TESTER_PHP_BIN="php"
+  - TESTER_PHP_BIN="php-cgi"
+
+services:
+  - postgresql
+
+before_install:
+  - composer self-update
+
+install:
+  - composer install --no-interaction --prefer-source
+
+before_script:
+  - psql -c 'create database app;' -U postgres
+  - for i in db/*.sql; do psql -U postgres <$i; done
+
+script:
+  - ./vendor/bin/tester -p $TESTER_PHP_BIN -s ./tests/
+
+after_failure:
+  # Vytiskne obsah souborů *.actual
+  - for i in $(find ./tests -name \*.actual); do echo "--- $i"; cat $i; echo; echo; done

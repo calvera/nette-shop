@@ -21,4 +21,11 @@
         {/foreach}
         </tbody>
     </table>
-{/block}
+
+    {if $basket->isEmpty()}
+        <div class="alert alert-info">Kosik je prazdny.</div>
+    {else}
+        {control orderForm}
+    {/if}
+
+    {/block}

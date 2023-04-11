@@ -2,7 +2,12 @@
 
     <h2>{$product->name}</h2>
 
-    <div>{$product->description}</div>
+    <div>
+        {$product->description}
+        {foreach $product->related('product_tag') as $productTag}
+            <span class="badge bg-secondary">{$productTag->tag->name}</span>
+        {/foreach}
+    </div>
 
     <div>{$product->price}CZK</div>
 

@@ -1,0 +1,9 @@
+{block content}
+
+<h2>Objednat</h2>
+
+{if $basket->isEmpty()}
+    <div class="alert alert-info">Kosik je prazdny.</div>
+{else}
+    {control orderForm}
+{/if}

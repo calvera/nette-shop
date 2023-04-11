@@ -87,4 +87,9 @@ class Basket
     {
         $this->session->set('items', []);
     }
+
+    public function isEmpty(): bool
+    {
+        return count($this->getItems()) === 0;
+    }
 }

@@ -15,7 +15,12 @@
             {var $id = uuid($product->id)}
             <tr>
                 <td><a n:href="ProductDetail: $id">{$product->name}</a></td>
-                <td>{$product->description}</td>
+                <td>
+                    {$product->description}
+                    {foreach $product->related('product_tag') as $productTag}
+                        <span class="badge bg-secondary">{$productTag->tag->name}</span>
+                    {/foreach}
+                </td>
                 <td class="text-end">CZK {$product->price|number:2}</td>
                 <td class="text-end">EUR {$product->price|convert('EUR')|number:2}</td>
                 <td>{control addToBasket-{$id}}</td>

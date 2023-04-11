@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1ba7d8f1fb12f61a6d427cf255a4a8f8",
+    "content-hash": "9d8492765c331020c4b60af18044b37f",
     "packages": [
         {
             "name": "contributte/webpack",
@@ -1761,6 +1761,8 @@
     "platform": {
         "php": ">= 8.0"
     },
-    "platform-dev": [],
+    "platform-dev": {
+        "ext-tokenizer": "*"
+    },
     "plugin-api-version": "2.3.0"
 }

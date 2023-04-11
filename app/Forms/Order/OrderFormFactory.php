@@ -2,27 +2,19 @@
 
 declare(strict_types=1);
 
-namespace App\Forms;
+namespace App\Forms\Order;
 
-use App\DTO\Basket;
-use JetBrains\PhpStorm\NoReturn;
 use Nette\Application\UI\Form;
-use Nette\Application\UI\Presenter;
-use Nette\Database\Explorer;
 
 class OrderFormFactory
 {
-    private Presenter $presenter;
-
     public function __construct(
-        private Explorer $database,
-        private Basket $basket,
-    ) { }
+        private OrderFormFacade $facade,
+    ) {
+    }
 
-    public function create(Presenter $presenter): Form
+    public function create(): Form
     {
-        $this->presenter = $presenter;
-
         $form = new Form;
 
         $form->addText('name', 'Jméno:')
@@ -39,16 +31,8 @@ class OrderFormFactory
 
         $form->addSubmit('send', 'Objednat');
 
-        $form->onSuccess[] = [$this, 'formSucceeded'];
+        $form->onSuccess[] = [$this->facade, 'formSucceeded'];
 
         return $form;
-    }
-
-    #[NoReturn]
-    public function formSucceeded(Form $form, $data): void
-    {
-        $this->presenter->flashMessage('Objednavka úspěšně odeslana.');
-        $this->basket->clear();
-        $this->presenter->redirect('Home:');
     }
 }

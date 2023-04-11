@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Presenters;
 
 
+use App\Repository\ProductRepository;
 use Nette\Utils\Paginator;
 
 final class ProductListPresenter extends BasePresenter
@@ -13,21 +14,22 @@ final class ProductListPresenter extends BasePresenter
 
     private const ITEMS_PER_PAGE = 2;
 
+    public function __construct(
+        private ProductRepository $productRepository,
+    ) {
+        parent::__construct();
+    }
+
+
     public function renderDefault(int $page = 1): void
     {
-        $count = $this->database
-            ->table('product')->count();
-
         $paginator = new Paginator;
-        $paginator->setItemCount($count);
+        $paginator->setItemCount($this->productRepository->count());
         $paginator->setItemsPerPage(self::ITEMS_PER_PAGE);
         $paginator->setPage($page);
 
-        $this->template->products = $this->database
-            ->table('product')
-            ->order('created_at DESC')
-            ->page($page, self::ITEMS_PER_PAGE);
-
         $this->template->paginator = $paginator;
+
+        $this->template->products = $this->productRepository->list($paginator);
     }
 }

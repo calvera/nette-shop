@@ -29,8 +29,7 @@ final class BasketWidgetControl extends Control
     {
         $this->basket->clear();
         $this->redrawControl();
-        $this->presenter->redrawControl('productList');
-        $this->presenter->redrawControl('productDetail');
+        $this->presenter->redrawControl('basketRelated');
         $this->presenter->payload->postGet = true;
         $this->presenter->payload->url = $this->link('this');
     }

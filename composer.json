@@ -25,7 +25,8 @@
 	"require-dev": {
         "ext-tokenizer": "*",
 		"nette/tester": "^2.4",
-		"symfony/thanks": "^1"
+		"symfony/thanks": "^1",
+		"php-coveralls/php-coveralls": "^2.5"
 	},
 	"autoload": {
 		"psr-4": {

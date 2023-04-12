@@ -23,8 +23,11 @@ before_script:
   - yarn build
 
 script:
-  - ./vendor/bin/tester -p $TESTER_PHP_BIN -C -s ./tests/
+  - ./vendor/bin/tester -p $TESTER_PHP_BIN -C -s --coverage coverage.xml --coverage-src src/ ./tests/
 
 after_failure:
   # Vytiskne obsah souborů *.actual
   - for i in $(find ./tests -name \*.actual); do echo "--- $i"; cat $i; echo; echo; done
+
+after_success:
+  - travis_retry php vendor/bin/php-coveralls -v -x coverage.xml

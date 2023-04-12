@@ -37,4 +37,9 @@ class ProductRepository
         return $this->database->table('product')
             ->limit($paginator->getItemsPerPage(), $paginator->getOffset());
     }
+
+    public function findAll(): Selection
+    {
+        return $this->database->table('product');
+    }
 }

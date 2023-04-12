@@ -3,7 +3,8 @@ Requirements
 
 - Web Project for Nette 3.1 requires PHP 8.0
 
-![Travis CI](https://app.travis-ci.com/calvera/nette-shop.svg?branch=main)
+[![Travis CI](https://app.travis-ci.com/calvera/nette-shop.svg?branch=main)](https://app.travis-ci.com/github/calvera/nette-shop)
+[![Coverage Status](https://coveralls.io/repos/github/calvera/nette-shop/badge.svg?branch=main)](https://coveralls.io/github/calvera/nette-shop?branch=main)
 
 Installation
 ------------

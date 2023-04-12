@@ -2,9 +2,7 @@ language: php
 
 php:
   - 8.1
-
-env:
-  - TESTER_PHP_BIN="php"
+  - 8.0
 
 services:
   - postgresql
@@ -23,7 +21,7 @@ before_script:
   - yarn build
 
 script:
-  - ./vendor/bin/tester -p $TESTER_PHP_BIN -C -s --coverage coverage.xml --coverage-src src/ ./tests/
+  - ./vendor/bin/tester -C -s --coverage coverage.xml --coverage-src src/ ./tests/
 
 after_failure:
   # Vytiskne obsah souborů *.actual

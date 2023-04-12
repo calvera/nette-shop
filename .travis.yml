@@ -27,4 +27,4 @@ after_failure:
   - for i in $(find ./tests -name \*.actual); do echo "--- $i"; cat $i; echo; echo; done
 
 after_success:
-  - ./vendor/bin/php-coveralls -vv -x coverage.xml -o temp/coveralls.json
+  - travis_retry ./vendor/bin/php-coveralls -x coverage.xml -o temp/coveralls.json
